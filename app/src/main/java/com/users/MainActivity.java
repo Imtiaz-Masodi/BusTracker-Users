@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity
     LatLng mData;
     LinkedHashMap<String, Marker> busMarkers;
     List<Marker> busMarkerList = new ArrayList<>();
-    private int PROXIMITY_RADIUS = 5000;
+    private int PROXIMITY_RADIUS = 1000;
     ProgressDialog mDialog;
 
 
