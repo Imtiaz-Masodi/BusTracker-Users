@@ -1,0 +1,107 @@
+{
+  "project_info": {
+    "project_number": "145856065135",
+    "firebase_url": "https://bustrackerusersui.firebaseio.com",
+    "project_id": "bustrackerusersui",
+    "storage_bucket": "bustrackerusersui.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:145856065135:android:24f957116b854f4b",
+        "android_client_info": {
+          "package_name": "com.bustrackerusersui"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCX9on5kkbenvQVyKyT7GU4rbZ0u9yyxf8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:145856065135:android:ebb8bc2935b29f9e",
+        "android_client_info": {
+          "package_name": "com.users"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "145856065135-m7eflhcurfmvgdrd9ick4rdvqebqopk9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.users",
+            "certificate_hash": "c73b74556ca1135affa23e00e4a1da220a2917f5"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCX9on5kkbenvQVyKyT7GU4rbZ0u9yyxf8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:145856065135:android:f465329436f25e0b",
+        "android_client_info": {
+          "package_name": "com.driver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "145856065135-phirojfltlknk5c9f0gna5oqsasnfjbo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.driver",
+            "certificate_hash": "c73b74556ca1135affa23e00e4a1da220a2917f5"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCX9on5kkbenvQVyKyT7GU4rbZ0u9yyxf8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
