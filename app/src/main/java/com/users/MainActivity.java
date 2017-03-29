@@ -58,13 +58,13 @@ import static com.users.R.id.map;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, SearchDialog.Communicator, DirectionFinderListener, FindBusDialog.FindBus, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
+    private static String GOOGLE_API_KEY;
     private static final int CONNECTION_FAILURE_RESOLUTION_REQUEST = 1;
     Location mLastLocation;
     public LocationRequest mLocationRequest;
     private GoogleApiClient mgoogleApiClient;
     Double latitude, longitude;
     String mLastUpdateTime;
-    LatLng track;
 
 
     public static final int FINE_LOCATION = 100;
@@ -86,6 +86,9 @@ public class MainActivity extends AppCompatActivity
     LatLng mData;
     LinkedHashMap<String, Marker> busMarkers;
     List<Marker> busMarkerList = new ArrayList<>();
+    private int PROXIMITY_RADIUS = 5000;
+    ProgressDialog mDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +97,8 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        mDialog = new ProgressDialog(this);
+        GOOGLE_API_KEY = "AIzaSyCX3yghdP7KoD3x4jdLEi0ZNl3l9wYwNeQ";
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(map);
         mapFragment.getMapAsync(this);
@@ -158,13 +163,13 @@ public class MainActivity extends AppCompatActivity
             if (mMap != null) {
                 mData = new LatLng(latitude, longitude);
                 if (myMarker != null) {
-                    myMarker.setPosition(track);
+                    myMarker.setPosition(mData);
+                    myMarker.setVisible(true);
                 } else {
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mData, 20));
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mData, 17));
                     MarkerOptions mpopt = new MarkerOptions()
-                            .position(track)
+                            .position(mData)
                             .title("I am Here")
-                            .flat(true)
                             .visible(true);
                     myMarker = mMap.addMarker(mpopt);
                 }
@@ -299,7 +304,24 @@ public class MainActivity extends AppCompatActivity
             busDialog = new FindBusDialog();
             busDialog.show(getFragmentManager(), "busdialog");
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_nearby_bus_stops) {
+            mDialog.setTitle("Please Wait");
+            mDialog.setMessage("Getting Nearby Bus Stops. . .");
+            mDialog.show();
+            String type = "bus_station";
+            StringBuilder googlePlacesUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
+            googlePlacesUrl.append("location=" + latitude + "," + longitude);
+            googlePlacesUrl.append("&radius=" + PROXIMITY_RADIUS);
+            googlePlacesUrl.append("&types=" + type);
+            googlePlacesUrl.append("&sensor=true");
+            googlePlacesUrl.append("&key=" + GOOGLE_API_KEY);
+
+            GooglePlacesReadTask googlePlacesReadTask = new GooglePlacesReadTask();
+            Object[] toPass = new Object[3];
+            toPass[0] = mMap;
+            toPass[1] = googlePlacesUrl.toString();
+            toPass[2]=mDialog;
+            googlePlacesReadTask.execute(toPass);
 
         } else if (id == R.id.nav_manage) {
 
@@ -513,5 +535,4 @@ public class MainActivity extends AppCompatActivity
             Log.i("MyTag", "Location services connection failed with code " + connectionResult.getErrorCode());
         }
     }
-
 }

@@ -11,9 +11,9 @@
             android:icon="@android:drawable/ic_menu_search"
             android:title="Find Bus" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_nearby_bus_stops"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:title="Find Nearby Bus Stops" />
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
