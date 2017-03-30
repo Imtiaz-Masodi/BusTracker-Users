@@ -5,7 +5,9 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
@@ -30,9 +32,11 @@ class GooglePlacesReadTask extends AsyncTask<Object, Integer, String> {
     String googlePlacesData = null;
     GoogleMap googleMap;
     ProgressDialog mDialog;
+    MainActivity mainActivity;
 
     @Override
     protected String doInBackground(Object... inputObj) {
+        mainActivity = (MainActivity) inputObj[3];
         mDialog = (ProgressDialog) inputObj[2];
         mDialog.show();
         try {
@@ -106,7 +110,8 @@ class GooglePlacesReadTask extends AsyncTask<Object, Integer, String> {
 
         @Override
         protected void onPostExecute(List<HashMap<String, String>> list) {
-            googleMap.clear();
+            clearMarkers();
+            mainActivity.nearestBusStopsList=list;
             Log.d("MyTag","Data Found Count : "+list.size());
             for (int i = 0; i < list.size(); i++) {
                 MarkerOptions markerOptions = new MarkerOptions();
@@ -117,10 +122,19 @@ class GooglePlacesReadTask extends AsyncTask<Object, Integer, String> {
                 String vicinity = googlePlace.get("vicinity");
                 LatLng latLng = new LatLng(lat, lng);
                 markerOptions.position(latLng);
-                markerOptions.title(placeName + " : " + vicinity);
-                googleMap.addMarker(markerOptions);
+                markerOptions.title(placeName + " : " + vicinity).icon(BitmapDescriptorFactory.fromResource(R.drawable.busstop));
+                mainActivity.nearestBusStopsMarkers.add(googleMap.addMarker(markerOptions));
             }
             mDialog.dismiss();
+            Log.d("MyTag","List Size : "+mainActivity.nearestBusStopsList.size());
+        }
+    }
+
+    private void clearMarkers() {
+        int count = mainActivity.nearestBusStopsMarkers.size();
+        for (int i=0;i<count;i++) {
+            Marker m = mainActivity.nearestBusStopsMarkers.get(i);
+            m.remove();
         }
     }
 

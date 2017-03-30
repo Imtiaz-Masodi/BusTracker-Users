@@ -49,6 +49,7 @@ import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -70,6 +71,8 @@ public class MainActivity extends AppCompatActivity
     public static final int FINE_LOCATION = 100;
     private static final int TWO_MINUTES = 1000 * 60 * 2;
 
+    List<HashMap<String, String>> nearestBusStopsList = new ArrayList<>();
+    List<Marker> nearestBusStopsMarkers = new ArrayList<>();
     private List<Marker> originMarkers = new ArrayList<>();
     private List<Marker> destinationMarkers = new ArrayList<>();
     private List<Polyline> polylinePaths = new ArrayList<>();
@@ -317,10 +320,11 @@ public class MainActivity extends AppCompatActivity
             googlePlacesUrl.append("&key=" + GOOGLE_API_KEY);
 
             GooglePlacesReadTask googlePlacesReadTask = new GooglePlacesReadTask();
-            Object[] toPass = new Object[3];
+            Object[] toPass = new Object[4];
             toPass[0] = mMap;
             toPass[1] = googlePlacesUrl.toString();
             toPass[2]=mDialog;
+            toPass[3]=this;
             googlePlacesReadTask.execute(toPass);
 
         } else if (id == R.id.nav_manage) {
